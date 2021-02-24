@@ -1,3 +1,6 @@
+.context {
+   height: calc(100vh - 125.58px);
+}
 .subtext {
    color: #A2A1A7;
 }
@@ -6,4 +9,10 @@
    background-color: #000;
    color: #fff;
    font-weight: 500;
+}
+
+.electionBg {
+   background: url(../../assets/election.png) no-repeat;
+   background-size: cover;
+   background-position-y: -60px;
 }

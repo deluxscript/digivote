@@ -2,15 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+* { padding: 0; margin: 0; }
+
 body, html {
    margin: 0;
    padding: 0;
    font-family: Roboto;
+   min-height: 100%;
  }
- #root {
+
+ body {
+    height: 100vh;
+    background-color: #FFFFFF;
+ }
+ #root, .App, main {
    overflow-x: hidden;
-   min-height: 100vh;
-   background-color: #FFFFFF;
+   height: 100%;
  }
 
  .brandColor {
