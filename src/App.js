@@ -9,7 +9,7 @@ import Register from "./pages/Register/Register.component";
 function App() {
   return (
    <Router>
-      <div className="App container mx-auto">
+      <div className="App container mx-auto px-4">
          <Layout>
             <Header />
             <Switch>
