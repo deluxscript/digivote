@@ -8,10 +8,10 @@ const Home = () => (
          <p className="py-3 subtext">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed porta turpis. Sed rhoncus massa feugiat ultricies ultrices. Suspendisse egestas augue quis felis varius.</p>
          <div className="flex space-x-5 py-4">
             <div>
-               <Link to="/register"><button className="rounded-full py-3 px-6 btn">Create Election</button></Link>
+               <Link to="/create-ballot"><button className="rounded-full py-3 px-6 focus:outline-none btn">Try Now</button></Link>
             </div>
             <div>
-               <button className="rounded-full py-3 px-6 btn">Login</button>
+               <p className="py-3 px-6 subtext">Already a User? <a href="/">Login</a></p>
             </div>
          </div>
       </div>

@@ -16,11 +16,19 @@ body, html {
     height: 100vh;
     background-color: #FFFFFF;
  }
- #root, .App, main {
+ /* #root, .App, main {
    overflow: hidden;
+   height: 100%;
+ } */
+
+ #root, .App, main {
    height: 100%;
  }
 
  .brandColor {
     color: #6d2a98;
+ }
+
+ .brandbg {
+   background-color: #6d2a98;
  }

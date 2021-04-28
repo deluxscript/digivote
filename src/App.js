@@ -3,8 +3,8 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import './App.css';
 import Header from "./components/header/header.component";
 import Layout from './hoc/Layout/Layout.component';
+import CreateBallot from "./pages/CreateBallot/createBallot.component";
 import Home from './pages/home/home.component';
-import Register from "./pages/Register/Register.component";
 
 function App() {
   return (
@@ -13,8 +13,8 @@ function App() {
          <Layout>
             <Header />
             <Switch>
-               <Route path="/register">
-                  <Register />
+               <Route path="/create-ballot">
+                  <CreateBallot />
                </Route>
                <Route path="/">
                   <Home />
