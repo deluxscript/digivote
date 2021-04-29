@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-** Numerous updates to this repo will be ongoing until 03/05/2021 **
+> Numerous updates to this repo will be ongoing until 03/05/2021
 
 ## Problem Statement:
 
