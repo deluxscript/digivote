@@ -5,6 +5,7 @@ import Header from "./components/header/header.component";
 import Layout from './hoc/Layout/Layout.component';
 import CreateBallot from "./pages/CreateBallot/createBallot.component";
 import Home from './pages/home/home.component';
+import Vote from "./pages/Vote/vote.component";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
             <Switch>
                <Route path="/create-ballot">
                   <CreateBallot />
+               </Route>
+               <Route path="/vote">
+                  <Vote />
                </Route>
                <Route path="/">
                   <Home />
