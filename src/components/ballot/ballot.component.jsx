@@ -148,7 +148,7 @@ class Ballot extends Component {
 
         Promise.all([ballotRequest, candidateRequest, voterRequest])
             .then(response =>
-                console.log(response)
+                this.props.history.push(`vote-dashboard/${this.state.ballotId}`)
                 )
             .catch(errors => {
                 console.log(errors);
