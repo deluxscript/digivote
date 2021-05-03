@@ -8,6 +8,7 @@ import Election from "./pages/Election/election.component";
 import Home from './pages/home/home.component';
 import VoteDashboard from "./pages/Vote/VoteDashboard.component.jsx";
 
+
 function App() {
   return (
    <Router>

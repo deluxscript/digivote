@@ -75,7 +75,7 @@ class Ballot extends Component {
     }
 
     componentDidMount(){
-        const account = "0x9F7b10dffFf96bE407C68e78c2A8E0163E1Ec583";
+        const account = `${process.env.REACT_APP_DIGIVOTE_ELECTORAL_BODY_ADDRESS}`;
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
         let votingContract = new web3.eth.Contract(votingAbi);
         const ballotID = this.state.ballotId;

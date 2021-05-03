@@ -32,12 +32,12 @@ class Election extends Component {
     }
 
     vote(candidateId) {
-        const account2 = "0x3B6a38E07ADd5a03f731389ee94040e4fD5eF545";
+        const voterAccount = `${process.env.REACT_APP_DIGIVOTE_VOTER_ADDRESS}`
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
         const gasLimit = 300000;
         const contractAddress = this.state.ballot.contractAddress;
         const contract = new web3.eth.Contract(votingAbi, contractAddress, {gas: gasLimit});
-        contract.methods.vote(candidateId).send({from: account2}).then((f) => {
+        contract.methods.vote(candidateId).send({from: voterAccount}).then((f) => {
             this.setState({status: true})
         }).catch(errors => {
             console.log(errors);
