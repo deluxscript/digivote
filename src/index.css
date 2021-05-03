@@ -32,3 +32,8 @@ body, html {
  .brandbg {
    background-color: #6d2a98;
  }
+
+ button:disabled,
+button[disabled] {
+  cursor:not-allowed;
+}

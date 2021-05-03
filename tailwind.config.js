@@ -76,6 +76,10 @@ module.exports = {
     width: ['responsive'],
     wordBreak: ['responsive'],
     zIndex: ['responsive'],
+    extend: {
+      opacity: ['disabled'],
+    }
+
   },
   corePlugins: {},
   plugins: [],
