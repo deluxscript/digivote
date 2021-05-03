@@ -6,7 +6,7 @@ import Layout from './hoc/Layout/Layout.component';
 import CreateBallot from "./pages/CreateBallot/createBallot.component";
 import Election from "./pages/Election/election.component";
 import Home from './pages/home/home.component';
-import Vote from "./pages/Vote/vote.component";
+import VoteDashboard from "./pages/Vote/VoteDashboard.component.jsx";
 
 function App() {
   return (
@@ -18,8 +18,8 @@ function App() {
                <Route path="/create-ballot">
                   <CreateBallot />
                </Route>
-               <Route path="/vote">
-                  <Vote />
+               <Route path="/vote-dashboard/:ballotId">
+                  <VoteDashboard />
                </Route>
                <Route path="/election/:ballotId">
                   <Election />

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Master from '../ballot-forms/master.component';
 import axios from 'axios';
 import Web3 from 'web3';
+import { withRouter } from 'react-router-dom';
 import {votingAbi} from '../../config/abi';
 import {bytecode} from '../../config/bytecode';
 
@@ -14,7 +15,7 @@ class Ballot extends Component {
             ballotId: 1,
             bodyName: '',
             bodyLoc: '',
-            candidates: [{name: "", id: ""}],
+            candidates: [{name: "", id: "", voteCount: ""}],
             contractAddress: '',
             note: '',
             voters: [{email: ""}],
@@ -33,14 +34,14 @@ class Ballot extends Component {
 
     handleAddCandidate = () => {
         this.setState({
-            candidates: this.state.candidates.concat([{ name: "", id: "" }])
+            candidates: this.state.candidates.concat([{ name: "", id: "", voteCount: "" }])
         });
     }
 
     handleCandidateNameChange = id => event => {
         const updatedCandidate = this.state.candidates.map((candidate, idx) => {
             if(id !== idx) return candidate;
-            return {...candidate, name: event.target.value, id: event.target.id}
+            return {...candidate, name: event.target.value, id: event.target.id, voteCount: 0}
         });
 
         this.setState({ candidates: updatedCandidate});
@@ -145,13 +146,13 @@ class Ballot extends Component {
         const candidateRequest = axios.post('http://localhost:8080/candidates/add', candidatesObject);
         const voterRequest = axios.post('http://localhost:8080/voters/add', votersObject);
 
-        Promise.all([ballotRequest, candidateRequest, voterRequest]).then(axios.spread((ballotResponse, candidateResponse, voterResponse) => {
-            console.log(ballotResponse.data);
-            console.log(candidateResponse.data);
-            console.log(voterResponse.data);
-        })).catch(errors => {
-            console.log(errors);
-        });
+        Promise.all([ballotRequest, candidateRequest, voterRequest])
+            .then(response =>
+                console.log(response)
+                )
+            .catch(errors => {
+                console.log(errors);
+            });
     }
     render(){
         return(
@@ -182,4 +183,4 @@ class Ballot extends Component {
     }
 }
 
-export default Ballot
+export default withRouter(Ballot);

@@ -10,9 +10,6 @@ const Home = () => (
             <div>
                <Link to="/create-ballot"><button className="rounded-full py-3 px-6 focus:outline-none btn">Try Now</button></Link>
             </div>
-            <div>
-               <p className="py-3 px-6 subtext">Already a User? <a href="/">Login</a></p>
-            </div>
          </div>
       </div>
       <div className="flex-grow-0 md:w-3/6 lg:w-2/3 bg-contain h-100 md:bg-center electionBg"></div>
