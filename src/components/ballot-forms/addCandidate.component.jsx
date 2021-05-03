@@ -4,6 +4,7 @@ const AddCandidate = (props) => (
         {props.candidates.map((candidate, id) => (
             <div key={id} className="py-2 px-4">
                 <input
+                    id={`${Math.floor(Math.random() * 8846) + 2453}`}
                     type="text"
                     placeholder={`Candidate ${id + 1} name`}
                     value={candidate.name}

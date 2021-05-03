@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import Master from '../ballot-forms/master.component';
 import axios from 'axios';
+import Web3 from 'web3';
+import {votingAbi} from '../../config/abi';
+import {bytecode} from '../../config/bytecode';
 
 class Ballot extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
+            adminEmail: '',
             ballotId: 1,
             bodyName: '',
             bodyLoc: '',
-            adminEmail: '',
+            candidates: [{name: "", id: ""}],
+            contractAddress: '',
             note: '',
-            candidates: [{name: ""}],
             voters: [{email: ""}],
         }
 
@@ -29,14 +33,14 @@ class Ballot extends Component {
 
     handleAddCandidate = () => {
         this.setState({
-            candidates: this.state.candidates.concat([{ name: "" }])
+            candidates: this.state.candidates.concat([{ name: "", id: "" }])
         });
     }
 
     handleCandidateNameChange = id => event => {
         const updatedCandidate = this.state.candidates.map((candidate, idx) => {
             if(id !== idx) return candidate;
-            return {...candidate, name: event.target.value}
+            return {...candidate, name: event.target.value, id: event.target.id}
         });
 
         this.setState({ candidates: updatedCandidate});
@@ -70,7 +74,11 @@ class Ballot extends Component {
     }
 
     componentDidMount(){
+        const account = "0x9F7b10dffFf96bE407C68e78c2A8E0163E1Ec583";
+        const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+        let votingContract = new web3.eth.Contract(votingAbi);
         const ballotID = this.state.ballotId;
+
         axios.get('http://localhost:8080/ballots/latest')
             .then(res => {
                 const data = res.data[0];
@@ -81,17 +89,46 @@ class Ballot extends Component {
                     }
                 }
             })
+
+        votingContract.deploy({
+            data: bytecode, 
+            arguments: []
+            }).send({
+                from: account, 
+                gas: '4700000'
+            }).then((newContract) => {
+                this.setState({contractAddress: newContract.options.address});
+            })
+    }
+
+    addCandidateToContract(candidateName,candidatesId){
+        const account = "0x9F7b10dffFf96bE407C68e78c2A8E0163E1Ec583";
+        const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+        const gasLimit = 300000
+        const contractAddress = this.state.contractAddress;
+
+        const contract = new web3.eth.Contract(votingAbi, contractAddress, {gas: gasLimit});
+
+        contract.methods.addCandidate(web3.utils.asciiToHex(candidateName), candidatesId).send({from: account}).then((f) => {
+            console.log("Candidate added to blockchain", f);
+        })
     }
 
     submitBallot(e){
         e.preventDefault();
+
+        const candidates = this.state.candidates;
+        candidates.map(candidate => {
+            return this.addCandidateToContract(candidate.name, candidate.id);
+        })
 
         const ballotObject = {
             ballotId: this.state.ballotId,
             bodyName: this.state.bodyName,
             adminEmail: this.state.adminEmail,
             note: this.state.note,
-            bodyLoc: this.state.bodyLoc
+            bodyLoc: this.state.bodyLoc,
+            contractAddress: this.state.contractAddress
         }
 
         const candidatesObject = {
@@ -119,7 +156,6 @@ class Ballot extends Component {
     render(){
         return(
             <div>
-                This is the ballot creation page
                 <form onSubmit={this.submitBallot}>
                     <Master
                         bodyName={this.state.bodyName}

@@ -4,6 +4,7 @@ import './App.css';
 import Header from "./components/header/header.component";
 import Layout from './hoc/Layout/Layout.component';
 import CreateBallot from "./pages/CreateBallot/createBallot.component";
+import Election from "./pages/Election/election.component";
 import Home from './pages/home/home.component';
 import Vote from "./pages/Vote/vote.component";
 
@@ -19,6 +20,9 @@ function App() {
                </Route>
                <Route path="/vote">
                   <Vote />
+               </Route>
+               <Route path="/election/:ballotId">
+                  <Election />
                </Route>
                <Route path="/">
                   <Home />

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import {votingAbi} from '../../config/abi';
+import {bytecode} from '../../config/bytecode';
 
 class Vote extends Component {
     constructor(props) {
@@ -9,20 +10,41 @@ class Vote extends Component {
         this.state = {}
     }
     componentDidMount(){
-        const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-        // const account = web3.eth.getAccounts().then((useAccount) => {
-        //     return useAccount[0]
-        // });
-        const account = "0xA4C37D0431F3D11c00958d56dd3896Baa29b334c";
-        const account2 = "0x09287709a2c5a293ee53917d94f845822ca77213";
-        let contract = new web3.eth.Contract(votingAbi, account);
+        const account = "0x9F7b10dffFf96bE407C68e78c2A8E0163E1Ec583";
+        const account2 = "0xA2E54781c34Fd42ce4f818116E6A015Fda76940F";
+        const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+        // let votingContract = new web3.eth.Contract(votingAbi);
+        // votingContract.deploy({
+        //             data: bytecode, 
+        //             arguments: []
+        //             }).send({
+        //                 from: account, 
+        //                 gas: '4700000'
+        //             }).then((newContract) => {
+        //                 votingContract.options.address = newContract.options.address;
+        //                 console.log('newContract: ',newContract.options.address);
+        //                 console.log('deployedContract: ',votingContract.options.address);
+        //             })
+        // console.log("outside variable: ", votingContract.options.address);
+        const contractAddress = '0xBD5574DEc3CeACCBd35487fE72771a681B44Fa2F';
+        const gasLimit = 300000
+        let contract = new web3.eth.Contract(votingAbi, contractAddress, {gas: gasLimit});
         console.log("Lets get the contracr: ",contract)
 
         const candidateName = "Abisoye Oyinlola";
+        const candidatesId = 52436;
 
-        contract.methods.vote(web3.utils.asciiToHex(candidateName)).send({from: account2}).then((f) => {
-            console.log("result", f)
-           })
+        // contract.methods.addCandidate(web3.utils.asciiToHex(candidateName), candidatesId).send({from: account}).then((f) => {
+        //     console.log("Add Candidate", f);
+        // })
+
+        contract.methods.vote(candidatesId).send({from: account2}).then((f) => {
+            console.log("vote", f)
+            // contract.methods.candidates(candidatesId).call().then((response) => {
+            //     console.log('vote count', response)
+            // })
+            
+        })
         
     }
     render(){
